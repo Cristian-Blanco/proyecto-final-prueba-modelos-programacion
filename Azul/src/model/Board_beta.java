@@ -99,6 +99,10 @@ public class Board_beta {
 		panel_5.setLayout(new GridLayout(2, 2, 0, 0));
 		
 		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		panel_5.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("New button");
