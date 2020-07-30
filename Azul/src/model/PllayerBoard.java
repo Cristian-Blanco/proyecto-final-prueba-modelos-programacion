@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
@@ -15,15 +16,26 @@ import java.awt.Component;
 
 public class PllayerBoard extends JPanel {
 	private JTextField textField;
+	private int ammount=0;
+	private String color=" ";
+	private int sessionID;
+	private int playerSize;
+	private HashMap<Integer,ActiveButton> mapButton;
 
 	/**
 	 * Create the panel.
 	 */
-	public PllayerBoard() {
+	public PllayerBoard(JTextField frametxtField, int sessionID, int playerSize) {
+		this.playerSize=playerSize;
+		this.sessionID=sessionID;
 		setLayout(null);
 		setBounds(0, 0, 494, 252);
+		textField = new JTextField();
+		textField.setBounds(363, 206, 116, 31);
+		add(textField);
+		textField.setColumns(10);
 		
-		HashMap<Integer,ActiveButton> mapButton = new HashMap<>(); 
+		mapButton = new HashMap<>(); 
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(12, 13, 234, 180);
@@ -53,13 +65,17 @@ public class PllayerBoard extends JPanel {
 			ActiveButton keyButton = new ActiveButton(i);
 			keyButton.setBounds(btnX, btnY, 39, 36);
 			mapButton.put(i, keyButton);
+			mapButton.put(i, keyButton).putTilesRighBoard(this.sessionID,frametxtField, this.playerSize);
 			panel.add(mapButton.get(i));
+			
 			btnX-=39;
 			btnY+=36;
 			lblX=195;
 			lblY=lblY+36;
 			indexB++;
 		}
+		
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(284, 13, 195, 180);
 		add(panel_1);
@@ -164,12 +180,7 @@ public class PllayerBoard extends JPanel {
 			aux--;
 		}
 		
-		mapButton.get(0).putTilesRighBoard(lbricksMatrix, "Yellow");
-		mapButton.get(1).putTilesRighBoard(lbricksMatrix, "Blue");
-		mapButton.get(2).putTilesRighBoard(lbricksMatrix, "Green");
-		mapButton.get(3).putTilesRighBoard(lbricksMatrix, "Red");
-		mapButton.get(4).putTilesRighBoard(lbricksMatrix, "Black");
-	
+		
 
 
 		JPanel panel_2 = new JPanel();
@@ -177,9 +188,23 @@ public class PllayerBoard extends JPanel {
 		panel_2.setBounds(12, 206, 317, 31);
 		add(panel_2);
 		
-		textField = new JTextField();
-		textField.setBounds(363, 206, 116, 31);
-		add(textField);
-		textField.setColumns(10);
+		
 	}
+
+	public HashMap<Integer, ActiveButton> getMapButton() {
+		return mapButton;
+	}
+
+	public void setMapButton(HashMap<Integer, ActiveButton> mapButton) {
+		this.mapButton = mapButton;
+	}
+
+	public JTextField getTextField() {
+		return textField;
+	}
+
+	public void setTextField(JTextField textField) {
+		this.textField = textField;
+	}
+	
 }
